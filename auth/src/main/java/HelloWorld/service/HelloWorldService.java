@@ -1,7 +1,8 @@
 package HelloWorld.service;
 
-import java.util.List;
+import com.github.pagehelper.PageInfo;
 
+import HelloWorld.form.RoleFrom;
 import HelloWorld.model.RoleModel;
 
 public interface HelloWorldService {
@@ -10,6 +11,6 @@ public interface HelloWorldService {
 	
 	int insert(RoleModel roleModel);
 	
-	List<RoleModel> selectAll();
+	PageInfo<RoleModel> selectAll(RoleFrom roleFrom);
 	
 }

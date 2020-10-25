@@ -1,14 +1,16 @@
 package HelloWorld.controller;
 
-import java.util.List;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageInfo;
+
+import HelloWorld.form.RoleFrom;
 import HelloWorld.model.RoleModel;
 import HelloWorld.service.HelloWorldService;
 import base.result.DataResult;
@@ -21,7 +23,7 @@ public class HelloWorldController {
 	
 	@RequestMapping("helloWorld_select")
 	@ResponseBody
-	public DataResult selectById(Model model, Long id) {
+	public DataResult selectById(Long id) {
 		if(StringUtils.isEmpty(id)) {
 			id = 1L;
 		}
@@ -33,19 +35,21 @@ public class HelloWorldController {
 	
 	@RequestMapping("helloWorld_selectAll")
 	@ResponseBody
-	public DataResult selectById(Model model) {
-		List<RoleModel> roles = helloWorldService.selectAll();
+	public DataResult selectById(RoleFrom roleFrom) {
+		PageInfo<RoleModel> roles = helloWorldService.selectAll(roleFrom);
 		DataResult dataResult = new DataResult();
 		dataResult.setData(roles);
 		return dataResult;
 	}
 	
 	@RequestMapping("helloWorld_save")
-	@ResponseBody
-	public DataResult insertRole(RoleModel role) {
+	public String insertRole(RoleModel role) {
+		RoleModel roleModel = new RoleModel();
+		roleModel.setName("test" + new Date().toString());
+		helloWorldService.insert(roleModel);
 		DataResult dataResult = new DataResult();
 		dataResult.setMsg("success");
-		return dataResult;
+		return "redirect:/helloWorld_selectAll";
 	}
 	
 }

@@ -5,6 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
+import HelloWorld.form.RoleFrom;
 import HelloWorld.mapper.HelloWorldMapper;
 import HelloWorld.model.RoleModel;
 import HelloWorld.service.HelloWorldService;
@@ -21,8 +25,11 @@ public class HelloWorldServiceImpl implements HelloWorldService {
 	}
 	
 	@Override
-	public List<RoleModel> selectAll() {
-		return helloWorldMapper.selectAll();
+	public PageInfo<RoleModel> selectAll(RoleFrom roleFrom) {
+		PageHelper.startPage(roleFrom.getPageNum(), roleFrom.getPageSize());
+		List<RoleModel> roles = helloWorldMapper.selectAll(roleFrom);
+		PageInfo<RoleModel> pageInfo = new PageInfo<>(roles);
+		return pageInfo;
 	}
 
 	@Override

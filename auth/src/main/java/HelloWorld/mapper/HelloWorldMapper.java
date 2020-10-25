@@ -2,6 +2,7 @@ package HelloWorld.mapper;
 
 import java.util.List;
 
+import HelloWorld.form.RoleFrom;
 import HelloWorld.model.RoleModel;
 
 public interface HelloWorldMapper{
@@ -10,6 +11,6 @@ public interface HelloWorldMapper{
 	
 	int insert(RoleModel roleModel);
 	
-	List<RoleModel> selectAll();
+	List<RoleModel> selectAll(RoleFrom roleFrom);
 	
 }
