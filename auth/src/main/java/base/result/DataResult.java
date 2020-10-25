@@ -1,21 +1,23 @@
 package base.result;
 
+import base.exception.BaseException;
+
 public class DataResult {
 	
-	private int status;
-	private String msg;
+	private String code;
+	private Object msg;
 	private Object data;
 	
-	public int getStatus() {
-		return status;
+	public String getCode() {
+		return code;
 	}
-	public void setStatus(int status) {
-		this.status = status;
+	public void setCode(String code) {
+		this.code = code;
 	}
-	public String getMsg() {
+	public Object getMsg() {
 		return msg;
 	}
-	public void setMsg(String msg) {
+	public void setMsg(Object msg) {
 		this.msg = msg;
 	}
 	public Object getData() {
@@ -23,6 +25,11 @@ public class DataResult {
 	}
 	public void setData(Object data) {
 		this.data = data;
+	}
+	
+	public void setCodeMsg(BaseException be) {
+		this.code = be.getCode();
+		this.msg = be.getMsg();
 	}
 	
 }

@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import HelloWorld.form.RoleFrom;
 import HelloWorld.model.RoleModel;
 import HelloWorld.service.HelloWorldService;
+import base.utils.StringUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring/applicationContext.xml"})
@@ -25,16 +26,22 @@ public class HelloWorldTest {
 	@Test
 	public void selectById() {
 		logger.info("HelloWorldTest selectById test");
-		RoleModel roleModel = helloWorldService.selectById(1L);
-		System.out.println(roleModel.getName());
+		try {
+			helloWorldService.selectById(1L);
+		} catch (Exception e) {
+			logger.error(StringUtils.printStackTraceToString(e));
+		}
 	}
 	
 	@Test
 	public void selectAll() {
 		logger.info("HelloWorldTest selectAll test");
 		RoleFrom roleFrom = new RoleFrom();
-		logger.info("HelloWorldTest selectAll roleFrom:" + roleFrom);
-		helloWorldService.selectAll(roleFrom);
+		try {
+			helloWorldService.selectAll(roleFrom);
+		} catch (Exception e) {
+			logger.error(StringUtils.printStackTraceToString(e));
+		}
 	}
 	
 	@Test
@@ -42,8 +49,11 @@ public class HelloWorldTest {
 		logger.info("HelloWorldTest insert test");
 		RoleModel roleModel = new RoleModel();
 		roleModel.setName("test" + new Date().toString());
-		logger.info("HelloWorldTest insert roleModel:" + roleModel);
-		helloWorldService.insert(roleModel);
+		try {
+			helloWorldService.insert(roleModel);
+		} catch (Exception e) {
+			logger.error(StringUtils.printStackTraceToString(e));
+		}
 	}
 	
 }

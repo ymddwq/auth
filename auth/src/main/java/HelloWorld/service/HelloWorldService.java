@@ -7,10 +7,10 @@ import HelloWorld.model.RoleModel;
 
 public interface HelloWorldService {
 
-	RoleModel selectById(Long id);
+	RoleModel selectById(Long id) throws Exception;
 	
-	int insert(RoleModel roleModel);
+	int insert(RoleModel roleModel) throws Exception;
 	
-	PageInfo<RoleModel> selectAll(RoleFrom roleFrom);
-	
+	PageInfo<RoleModel> selectAll(RoleFrom roleFrom) throws Exception;
+
 }
