@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	
+	<settings>
+		<setting name= "logImpl" value="LOG4J" />
+		<!-- 设置为true时，可以直接将数据库字段名转换为驼峰命名，例如字段名user_name转换成userName，这样就不需要在sql中取别名，需要注意的是字段名和类名转换后能匹配上才能使用 
+		 -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting name="aggressiveLazyLoading" value="false"/>
+	</settings>
+	
+	<plugins> 
+		<plugin interceptor="com.github.pagehelper.PageInterceptor" />
+	</plugins>
+	
+</configuration>
