@@ -1,7 +1,5 @@
 package HelloWorld.service.impl;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.List;
 
 import org.apache.log4j.Logger;

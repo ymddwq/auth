@@ -2,7 +2,7 @@ package base.form;
 
 import org.springframework.util.StringUtils;
 
-public class PageForm {
+public class PageForm extends BaseForm {
 
 	private Integer pageSize;
 	

@@ -3,7 +3,7 @@ package base.utils;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-public class StringUtils {
+public class AuthStringUtils {
 
 	/**
 	 * 将异常堆栈信息转换为String类型，以便输出到日志中

@@ -16,6 +16,7 @@ import HelloWorld.model.RoleModel;
 import HelloWorld.service.HelloWorldService;
 import base.exception.ExceptionInfo;
 import base.result.DataResult;
+import base.utils.AuthStringUtils;
 
 @Controller
 public class HelloWorldController {
@@ -38,7 +39,7 @@ public class HelloWorldController {
 			dataResult.setData(role);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
-			logger.error("HelloWorldController selectById " + base.utils.StringUtils.printStackTraceToString(e));
+			logger.error("HelloWorldController selectById " + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;
@@ -54,7 +55,7 @@ public class HelloWorldController {
 			dataResult.setData(roles);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
-			logger.error("HelloWorldController selectAll " + base.utils.StringUtils.printStackTraceToString(e));
+			logger.error("HelloWorldController selectAll " + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;
@@ -70,7 +71,7 @@ public class HelloWorldController {
 			helloWorldService.insert(roleModel);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
-			logger.error("HelloWorldController insertRole " + base.utils.StringUtils.printStackTraceToString(e));
+			logger.error("HelloWorldController insertRole " + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;
