@@ -15,7 +15,7 @@ ALTER TABLE user_auth_module COMMENT '模块表';
 DROP TABLE IF EXISTS user_auth_menu;
 CREATE TABLE user_auth_menu(
     id INT NOT NULL AUTO_INCREMENT  COMMENT '主键' ,
-    enabled INT NOT NULL  DEFAULT 0 COMMENT '是否可用 0可用1不可用' ,
+    enabled INT DEFAULT 0 COMMENT '是否可用 0可用1不可用' ,
     name VARCHAR(32) NOT NULL   COMMENT '菜单名称' ,
     pid INT    COMMENT '上级菜单id 自关联' ,
     REVISION INT    COMMENT '乐观锁' ,
