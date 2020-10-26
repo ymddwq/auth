@@ -1,7 +1,5 @@
 package auth.form;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -9,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import base.form.PageForm;
 
-public class ModuleForm extends PageForm {
+public class MenuForm extends PageForm {
 	
 	private Integer id;
 	
@@ -20,45 +18,38 @@ public class ModuleForm extends PageForm {
 	@Pattern(regexp = "^[0-1]", message="请填写正确的值")
 	private String enabled;
 	
-	private Date createdStartTime;
-	
-	private Date createdEndTime;
+	private String pid;
 	
 	public Integer getId() {
 		return id;
 	}
+	
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
 	public String getName() {
 		return name;
 	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	public String getEnabled() {
 		return enabled;
 	}
+	
 	public void setEnabled(String enabled) {
 		this.enabled = enabled;
 	}
-	public Date getCreatedStartTime() {
-		return createdStartTime;
-	}
-	public void setCreatedStartTime(Date createdStartTime) {
-		this.createdStartTime = createdStartTime;
-	}
-	public Date getCreatedEndTime() {
-		return createdEndTime;
-	}
-	public void setCreatedEndTime(Date createdEndTime) {
-		this.createdEndTime = createdEndTime;
+	
+	public String getPid() {
+		return pid;
 	}
 	
-	@Override
-	public String toString() {
-		return "ModuleForm [id=" + id + ", name=" + name + ", enabled=" + enabled + ", createdStartTime="
-				+ createdStartTime + ", createdEndTime=" + createdEndTime + "]";
+	public void setPid(String pid) {
+		this.pid = pid;
 	}
 	
 }

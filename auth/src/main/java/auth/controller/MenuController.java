@@ -1,5 +1,7 @@
 package auth.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -11,11 +13,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.pagehelper.PageInfo;
-
-import auth.form.ModuleForm;
-import auth.model.Module;
-import auth.service.ModuleService;
+import auth.form.MenuForm;
+import auth.model.Menu;
+import auth.service.MenuService;
 import base.exception.BaseException;
 import base.exception.ExceptionInfo;
 import base.result.DataResult;
@@ -23,25 +23,25 @@ import base.utils.AuthStringUtils;
 import base.utils.ValidUtils;
 
 @Controller
-@RequestMapping("/module")
-public class ModuleController {
+@RequestMapping("/menu")
+public class MenuController {
 
-	private static Logger logger = Logger.getLogger(ModuleController.class);
+	private static Logger logger = Logger.getLogger(MenuController.class);
 	
 	@Autowired
-	ModuleService moduleService;
+	MenuService menuService;
 	
 	@RequestMapping("/select")
 	@ResponseBody
-	public DataResult selectAll(ModuleForm form) {
+	public DataResult selectAll() {
 		DataResult dataResult = new DataResult();
-		PageInfo<Module> lists = null;
+		List<Menu> lists = null;
 		try {
-			lists = moduleService.selectAll(form);
+			lists = menuService.selectAll();
 			dataResult.setData(lists);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
-			logger.error("ModuleController selectAll " + AuthStringUtils.printStackTraceToString(e));
+			logger.error("MenuController selectAll " + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;
@@ -49,22 +49,22 @@ public class ModuleController {
 	
 	@RequestMapping("/insert")
 	@ResponseBody
-	public Object insert(@Valid ModuleForm form, BindingResult bindingResult) {
+	public Object insert(@Valid MenuForm form, BindingResult bindingResult) {
 		DataResult dataResult = new DataResult();
 		//如果参数校验失败直接返回
 		if(!ValidUtils.validResultBulid(bindingResult, dataResult)) {
 			return dataResult;
 		}
-		Module module = new Module();
+		Menu obj = new Menu();
 		try {
-			BeanUtils.copyProperties(form, module);
-			moduleService.insert(module);
+			BeanUtils.copyProperties(form, obj);
+			menuService.insert(obj);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (BaseException e) {
-			logger.error("ModuleController insert BaseException" + AuthStringUtils.printStackTraceToString(e));
+			logger.error("MenuController insert BaseException" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.THE_SAME_NAME);
 		} catch (Exception e) {
-			logger.error("ModuleController insert Exception" + AuthStringUtils.printStackTraceToString(e));
+			logger.error("MenuController insert Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;
@@ -72,7 +72,7 @@ public class ModuleController {
 	
 	@RequestMapping("/update")
 	@ResponseBody
-	public Object update(@Valid ModuleForm form, BindingResult bindingResult) {
+	public Object update(@Valid MenuForm form, BindingResult bindingResult) {
 		DataResult dataResult = new DataResult();
 		//如果参数校验失败直接返回
 		if(!ValidUtils.validResultBulid(bindingResult, dataResult)) {
@@ -82,16 +82,16 @@ public class ModuleController {
 			dataResult.setCodeMsg(ExceptionInfo.ID_IS_NULL);
 			return dataResult;
 		}
-		Module module = new Module();
+		Menu obj = new Menu();
 		try {
-			BeanUtils.copyProperties(form, module);
-			moduleService.updateByPrimaryKey(module);
+			BeanUtils.copyProperties(form, obj);
+			menuService.updateByPrimaryKey(obj);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (BaseException e) {
-			logger.error("ModuleController update BaseException" + AuthStringUtils.printStackTraceToString(e));
+			logger.error("MenuController update BaseException" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.THE_SAME_NAME);
 		} catch (Exception e) {
-			logger.error("ModuleController update Exception" + AuthStringUtils.printStackTraceToString(e));
+			logger.error("MenuController update Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;
@@ -107,10 +107,10 @@ public class ModuleController {
 			return dataResult;
 		}
 		try {
-			moduleService.deleteByPrimaryKey(id);
+			menuService.deleteByPrimaryKey(id);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
-			logger.error("ModuleController delete Exception" + AuthStringUtils.printStackTraceToString(e));
+			logger.error("MenuController delete Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;

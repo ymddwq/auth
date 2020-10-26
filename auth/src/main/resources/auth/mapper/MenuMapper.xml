@@ -78,9 +78,4 @@
 	where name = #{name}
   </select>
   
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, enabled, name, pid, REVISION, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME
-    from user_auth_menu where enabled = 0
-  </select>
-  
 </mapper>
