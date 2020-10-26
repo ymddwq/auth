@@ -28,10 +28,10 @@ public class HelloWorldController {
 	
 	@RequestMapping("helloWorld_select")
 	@ResponseBody
-	public DataResult selectById(Long id) {
+	public DataResult selectById(Integer id) {
 		DataResult dataResult = new DataResult();
 		if(StringUtils.isEmpty(id)) {
-			id = 1L;
+			id = 1;
 		}
 		RoleModel role = null;
 		try {

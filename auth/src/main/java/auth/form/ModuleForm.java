@@ -11,8 +11,6 @@ import base.form.PageForm;
 
 public class ModuleForm extends PageForm {
 	
-	private Integer id;
-	
 	@NotNull(message="不能为空")
 	@Length(message="名称最少为2个字符，最长为32个字符", min=1, max=32)
 	private String name;
@@ -24,12 +22,6 @@ public class ModuleForm extends PageForm {
 	
 	private Date createdEndTime;
 	
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
 	}
@@ -53,12 +45,6 @@ public class ModuleForm extends PageForm {
 	}
 	public void setCreatedEndTime(Date createdEndTime) {
 		this.createdEndTime = createdEndTime;
-	}
-	
-	@Override
-	public String toString() {
-		return "ModuleForm [id=" + id + ", name=" + name + ", enabled=" + enabled + ", createdStartTime="
-				+ createdStartTime + ", createdEndTime=" + createdEndTime + "]";
 	}
 	
 }

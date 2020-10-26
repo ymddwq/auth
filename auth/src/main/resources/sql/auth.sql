@@ -30,15 +30,15 @@ ALTER TABLE user_auth_menu COMMENT '菜单表';
 DROP TABLE IF EXISTS user_auth_permission;
 CREATE TABLE user_auth_permission(
     id INT NOT NULL AUTO_INCREMENT  COMMENT '主键' ,
-    enabled INT NOT NULL  DEFAULT 0 COMMENT '是否可用 0可用1不可用' ,
+    enabled INT DEFAULT 0 COMMENT '是否可用 0可用1不可用' ,
     name VARCHAR(32) NOT NULL   COMMENT '权限名称' ,
-    url VARCHAR(128) NOT NULL   COMMENT '权限url' ,
-    menuId INT NOT NULL   COMMENT '所属菜单' ,
+    url VARCHAR(128) COMMENT '权限url' ,
+    menuId INT COMMENT '所属菜单' ,
     REVISION INT    COMMENT '乐观锁' ,
-    CREATED_BY VARCHAR(32) NOT NULL   COMMENT '创建人' ,
-    CREATED_TIME DATETIME NOT NULL   COMMENT '创建时间' ,
-    UPDATED_BY VARCHAR(32) NOT NULL   COMMENT '更新人' ,
-    UPDATED_TIME DATETIME NOT NULL   COMMENT '更新时间' ,
+    CREATED_BY VARCHAR(32) COMMENT '创建人' ,
+    CREATED_TIME DATETIME COMMENT '创建时间' ,
+    UPDATED_BY VARCHAR(32) COMMENT '更新人' ,
+    UPDATED_TIME DATETIME COMMENT '更新时间' ,
     PRIMARY KEY (id)
 ) COMMENT = '权限表 ';
 ALTER TABLE user_auth_permission COMMENT '权限表';

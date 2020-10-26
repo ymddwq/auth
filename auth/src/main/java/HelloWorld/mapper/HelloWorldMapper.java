@@ -7,7 +7,7 @@ import HelloWorld.model.RoleModel;
 
 public interface HelloWorldMapper{
 
-	RoleModel selectById(Long id);
+	RoleModel selectById(Integer id);
 	
 	int insert(RoleModel roleModel);
 	

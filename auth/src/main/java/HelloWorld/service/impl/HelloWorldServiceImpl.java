@@ -23,7 +23,7 @@ public class HelloWorldServiceImpl implements HelloWorldService {
 	HelloWorldMapper helloWorldMapper;
 	
 	@Override
-	public RoleModel selectById(Long id) {
+	public RoleModel selectById(Integer id) {
 		return helloWorldMapper.selectById(id);
 	}
 	

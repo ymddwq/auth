@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class BaseForm {
 	
+	private Integer id;
+	
 	private String createdBy;
 	
 	private Date createdTime;
@@ -12,6 +14,12 @@ public class BaseForm {
 	
 	private Date updatedTime;
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getCreatedBy() {
 		return createdBy;
 	}

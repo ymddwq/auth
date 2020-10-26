@@ -7,7 +7,7 @@ import HelloWorld.model.RoleModel;
 
 public interface HelloWorldService {
 
-	RoleModel selectById(Long id) throws Exception;
+	RoleModel selectById(Integer id) throws Exception;
 	
 	int insert(RoleModel roleModel) throws Exception;
 	

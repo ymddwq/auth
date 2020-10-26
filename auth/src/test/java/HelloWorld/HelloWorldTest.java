@@ -22,7 +22,7 @@ public class HelloWorldTest {
 	@Test
 	public void selectById() {
 		try {
-			helloWorldService.selectById(1L);
+			helloWorldService.selectById(1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
