@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<classPathEntry location="D:\maven\maven_local_repository\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar"/>
+
+    <context id="MysqlContext" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/> <!-- 是否取消注释 -->
+            <property name="addRemarkComments" value="true"/> <!-- 是否生成注释时间戳 -->
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/auth"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+		<!-- 生成Model.java -->
+        <javaModelGenerator targetPackage="auth.model" targetProject="auth\src\main\java">
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+		<!-- 生成Mapper.xml -->
+        <sqlMapGenerator targetPackage="auth.mapper"  targetProject="auth\src\main\resources"/>
+
+		<!-- 生成Mapper.java -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="auth.mapper" 
+        						targetProject="auth\src\main\java"/>
+
+        <table tableName="user_auth%">
+            <generatedKey column="id" sqlStatement="Mysql"/>
+		    <domainObjectRenamingRule searchString="^UserAuth" replaceString="" />
+		    <!-- 移除字段前缀
+		    <columnRenamingRule searchString="" replaceString=""/>
+		     -->
+        </table>
+    </context>
+    
+</generatorConfiguration>
