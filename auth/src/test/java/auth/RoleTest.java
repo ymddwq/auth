@@ -6,26 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import auth.form.PermissionForm;
-import auth.model.Permission;
-import auth.service.PermissionService;
+import auth.form.RoleForm;
+import auth.model.Role;
+import auth.service.RoleService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring/applicationContext.xml"})
 
-public class PermissionTest {
+public class RoleTest {
 	
 	@Autowired
-	PermissionService permissionService;
+	RoleService roleService;
 	
 	@Test
 	public void insert() {
 		for(int i=0; i<=10; i++) {
 			try {
-				Permission obj = new Permission();
+				Role obj = new Role();
 				obj.setName("test" + i);
-				obj.setUrl("permission" + i);
-				permissionService.insert(obj);
+				roleService.insert(obj);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -34,11 +33,11 @@ public class PermissionTest {
 	
 	@Test
 	public void updateByPrimaryKey() {
-//		Permission obj = new Permission();
-//		obj.setId(5);
+//		Role obj = new Role();
+//		obj.setId(24);
 //		obj.setName("test" + new Date().toString());
 //		try {
-//			permissionService.updateByPrimaryKey(obj);
+//			roleService.updateByPrimaryKey(obj);
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
@@ -47,7 +46,7 @@ public class PermissionTest {
 	@Test
 	public void deleteByPrimaryKey() {
 		try {
-			permissionService.deleteByPrimaryKey(5);
+			roleService.deleteByPrimaryKey(24);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -56,8 +55,8 @@ public class PermissionTest {
 	@Test
 	public void selectAll() {
 		try {
-			PermissionForm form = new PermissionForm();
-			permissionService.selectAll(form);
+			RoleForm form = new RoleForm();
+			roleService.selectAll(form);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -45,21 +45,21 @@ public class MenuTest {
 	}
 	
 	@Test
-	public void deleteByPrimaryKey() {
-		try {
-			menuService.deleteByPrimaryKey(1);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public void updateByPrimaryKey() {
+//		Menu obj = new Menu();
+//		obj.setId(2);
+//		obj.setName("test2_u");
+//		try {
+//			menuService.updateByPrimaryKey(obj);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	@Test
-	public void updateByPrimaryKey() {
-		Menu obj = new Menu();
-		obj.setId(2);
-		obj.setName("test2_u");
+	public void deleteByPrimaryKey() {
 		try {
-			menuService.updateByPrimaryKey(obj);
+			menuService.deleteByPrimaryKey(1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
