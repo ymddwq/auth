@@ -11,6 +11,6 @@ public interface RoleMapper {
 	int deleteByPrimaryKey(Integer id) throws Exception;
 	Role selectByPrimaryKey(Integer id) throws Exception;
 	List<Role> selectAll() throws Exception;
-	Role selectByName(String name) throws Exception;
+	List<Role> selectByName(String name) throws Exception;
 
 }

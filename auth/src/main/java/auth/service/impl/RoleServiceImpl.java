@@ -1,11 +1,12 @@
 package auth.service.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -15,6 +16,7 @@ import auth.mapper.RoleMapper;
 import auth.model.Role;
 import auth.service.RoleService;
 import base.exception.ExceptionInfo;
+import base.utils.AuthRedisLockUtils;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -24,15 +26,29 @@ public class RoleServiceImpl implements RoleService {
 	@Autowired
 	RoleMapper roleMapper;
 	
+	@Autowired
+	RedisTemplate<String, Object> redisTemplate;
+	
 	@Override
 	public boolean insert(Role record) throws Exception {
 		logger.info("RoleServiceImpl insert record: " + record);
-		//校验是否重名
-		Role obj = roleMapper.selectByName(record.getName());
-		if(obj != null && !StringUtils.isEmpty(obj.getName())) {
-			throw ExceptionInfo.THE_SAME_NAME;
+		int result = 0;
+		String uuid = UUID.randomUUID().toString();
+		try {
+			if(AuthRedisLockUtils.redisLock(redisTemplate, "RoleServiceImpl_insert", uuid, 3)) {
+				//校验是否重名
+				List<Role> lists = roleMapper.selectByName(record.getName());
+				if(lists != null && lists.size()>0) {
+					throw ExceptionInfo.THE_SAME_NAME;
+				}
+				int insert = roleMapper.insert(record);
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			AuthRedisLockUtils.redisUnlock(redisTemplate, "RoleServiceImpl_insert", uuid);
 		}
-		if(1 <= roleMapper.insert(record)) {
+		if(1 <= result) {
 			return true;
 		} else {
 			return false;
@@ -55,8 +71,8 @@ public class RoleServiceImpl implements RoleService {
 		Role oldObj = roleMapper.selectByPrimaryKey(record.getId());
 		if(!oldObj.getName().equals(record.getName())) {
 			//校验是否重名
-			Role newObj = roleMapper.selectByName(record.getName());
-			if(newObj != null && !StringUtils.isEmpty(newObj.getName())) {
+			List<Role> lists = roleMapper.selectByName(record.getName());
+			if(lists != null && lists.size()>0) {
 				throw ExceptionInfo.THE_SAME_NAME;
 			}
 		}

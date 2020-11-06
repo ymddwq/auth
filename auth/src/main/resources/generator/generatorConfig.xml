@@ -34,7 +34,7 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="auth.mapper" 
         						targetProject="auth\src\main\java"/>
 
-        <table tableName="user_auth%">
+        <table tableName="user_auth_sys_user">
             <generatedKey column="id" sqlStatement="Mysql"/>
 		    <domainObjectRenamingRule searchString="^UserAuth" replaceString="" />
 		    <!-- 移除字段前缀

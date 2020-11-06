@@ -13,6 +13,7 @@ import HelloWorld.form.RoleFrom;
 import HelloWorld.mapper.HelloWorldMapper;
 import HelloWorld.model.RoleModel;
 import HelloWorld.service.HelloWorldService;
+import base.exception.ExceptionInfo;
 
 @Service
 public class HelloWorldServiceImpl implements HelloWorldService {
@@ -37,9 +38,17 @@ public class HelloWorldServiceImpl implements HelloWorldService {
 
 	@Override
 	public int insert(RoleModel roleModel) throws Exception {
-		int result = helloWorldMapper.insert(roleModel);
-		//测试事务
-//		System.out.println(1/0);
+		int result = 0;
+		try {
+			//测试事务
+//			System.out.println(1/0);
+			result = helloWorldMapper.insert(roleModel);
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			//throw ExceptionInfo.FAIL;
+		}
 		return result;
 	}
 	
