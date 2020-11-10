@@ -1,15 +1,9 @@
 package auth.service;
 
-import com.github.pagehelper.PageInfo;
-
 import auth.form.PermissionForm;
 import auth.model.Permission;
+import base.service.BaseService;
 
-public interface PermissionService {
+public interface PermissionService extends BaseService<Permission, PermissionForm> {
 
-	boolean insert(Permission record) throws Exception;
-	boolean deleteByPrimaryKey(Integer id) throws Exception;
-	boolean updateByPrimaryKey(Permission record) throws Exception;
-	PageInfo<Permission> selectAll(PermissionForm form) throws Exception;
-	
 }

@@ -1,15 +1,9 @@
 package auth.service;
 
-import com.github.pagehelper.PageInfo;
-
 import auth.form.ModuleForm;
 import auth.model.Module;
+import base.service.BaseService;
 
-public interface ModuleService {
+public interface ModuleService extends BaseService<Module, ModuleForm> {
 
-	boolean insert(Module record) throws Exception;
-	boolean deleteByPrimaryKey(Integer id) throws Exception;
-	boolean updateByPrimaryKey(Module record) throws Exception;
-	PageInfo<Module> selectAll(ModuleForm form) throws Exception;
-	
 }

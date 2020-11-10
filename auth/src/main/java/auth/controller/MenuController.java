@@ -35,10 +35,10 @@ public class MenuController {
 	@ResponseBody
 	public DataResult selectAll() {
 		DataResult dataResult = new DataResult();
-		List<Menu> lists = null;
+		List<Menu> list = null;
 		try {
-			lists = menuService.selectAll();
-			dataResult.setData(lists);
+			list = menuService.selectAll();
+			dataResult.setData(list);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
 			logger.error("MenuController selectAll " + AuthStringUtils.printStackTraceToString(e));

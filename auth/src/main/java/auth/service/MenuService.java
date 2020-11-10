@@ -2,13 +2,12 @@ package auth.service;
 
 import java.util.List;
 
+import auth.form.MenuForm;
 import auth.model.Menu;
+import base.service.BaseService;
 
-public interface MenuService {
+public interface MenuService extends BaseService<Menu, MenuForm> {
 
-	boolean insert(Menu record) throws Exception;
-	boolean deleteByPrimaryKey(Integer id) throws Exception;
-	boolean updateByPrimaryKey(Menu record) throws Exception;
-	List<Menu> selectAll() throws Exception;
+	List<Menu> selectAll();
 	
 }

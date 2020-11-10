@@ -2,15 +2,16 @@ package auth.mapper;
 
 import java.util.List;
 
+import auth.form.RoleForm;
+import auth.model.Permission;
 import auth.model.Role;
+import auth.model.RolePermission;
+import base.mapper.BaseMapper;
 
-public interface RoleMapper {
+public interface RoleMapper extends BaseMapper<Role, RoleForm> {
 
-	int insert(Role record) throws Exception;
-	int updateByPrimaryKey(Role record) throws Exception;
-	int deleteByPrimaryKey(Integer id) throws Exception;
-	Role selectByPrimaryKey(Integer id) throws Exception;
-	List<Role> selectAll() throws Exception;
-	List<Role> selectByName(String name) throws Exception;
-
+	int insertRolePermissions(List<RolePermission> list);
+	int deleteRolePermissionByRoleId(Integer id);
+	List<Permission> selectPermissionsByRoleId(Integer id);
+	
 }

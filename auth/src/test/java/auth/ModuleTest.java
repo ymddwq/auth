@@ -56,6 +56,8 @@ public class ModuleTest {
 	public void selectAll() {
 		try {
 			ModuleForm module = new ModuleForm();
+			module.setName("123");
+			module.setPageNum(2);
 			moduleService.selectAll(module);
 		} catch (Exception e) {
 			e.printStackTrace();

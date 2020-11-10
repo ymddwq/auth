@@ -18,6 +18,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   
+  <delete id="deleteRolePermissionByRoleId" parameterType="java.lang.Integer">
+    delete from user_auth_role_permission where roleId = #{id,jdbcType=INTEGER}
+  </delete>
+  
   <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="auth.model.Role">
     insert into user_auth_role (id, name, enabled, 
       REVISION, CREATED_BY, CREATED_TIME, 
@@ -25,6 +29,14 @@
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{enabled,jdbcType=INTEGER}, 
       #{revision,jdbcType=INTEGER}, #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
       #{updatedBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertRolePermissions" parameterType="auth.model.RolePermission">
+    insert into user_auth_role_permission (roleId, permissionId, REVISION, CREATED_BY, CREATED_TIME)
+    values 
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.roleId},#{item.permissionId},#{item.revision}, #{item.createdBy}, #{item.createdTime})
+    </foreach>
   </insert>
   
   <update id="updateByPrimaryKey" parameterType="auth.model.Role">
@@ -46,6 +58,13 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select id, name, enabled, REVISION, CREATED_BY, CREATED_TIME, UPDATED_BY, UPDATED_TIME
     from user_auth_role
+  </select>
+  
+  <select id="selectPermissionsByRoleId" resultType="auth.model.Permission">
+  	select uap.id, uap.name 
+  	from user_auth_permission uap 
+  	left join user_auth_role_permission uarp on uap.id = uarp.permissionId
+  	where uarp.roleId = #{id,jdbcType=INTEGER}
   </select>
   
   <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">

@@ -1,15 +1,14 @@
 package auth.service;
 
-import com.github.pagehelper.PageInfo;
+import java.util.List;
 
 import auth.form.RoleForm;
+import auth.model.Permission;
 import auth.model.Role;
+import base.service.BaseService;
 
-public interface RoleService {
-
-	boolean insert(Role record) throws Exception;
-	boolean updateByPrimaryKey(Role record) throws Exception;
-	boolean deleteByPrimaryKey(Integer id) throws Exception;
-	PageInfo<Role> selectAll(RoleForm form) throws Exception;
+public interface RoleService extends BaseService<Role, RoleForm> {
 	
+	List<Permission> selectPermissionsByRoleId(Integer id);
+
 }

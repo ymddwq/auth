@@ -19,12 +19,15 @@
     delete from user_auth_permission where id = #{id,jdbcType=INTEGER}
   </delete>
   
-  <delete id="deleteRolePermissionByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user_auth_role_permission where permissionId = #{id,jdbcType=INTEGER}
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.Integer">
+    delete from user_auth_permission where id in 
+    <foreach item="item" collection="list" open="(" separator="," close=")">
+    	#{item}
+    </foreach>
   </delete>
   
-  <delete id="deleteMenuPermissionByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user_auth_menu_permission where permissionId = #{id,jdbcType=INTEGER}
+  <delete id="deleteRolePermissionByPermissionId" parameterType="java.lang.Integer">
+    delete from user_auth_role_permission where permissionId = #{id,jdbcType=INTEGER}
   </delete>
   
   <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="auth.model.Permission">
@@ -55,6 +58,16 @@
     UPDATED_TIME
     from user_auth_permission
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPrimaryKeys"  resultMap="BaseResultMap">
+    select id, enabled, name, url, menuId, REVISION, CREATED_BY, CREATED_TIME, UPDATED_BY, 
+    UPDATED_TIME
+    from user_auth_permission
+    where menuId in 
+    <foreach item="item" collection="list" open="(" separator="," close=")">
+    	#{item}
+    </foreach>
   </select>
   
   <select id="selectAll" resultMap="BaseResultMap">

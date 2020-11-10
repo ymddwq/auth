@@ -1,5 +1,7 @@
 package auth;
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ public class PermissionTest {
 		for(int i=0; i<=10; i++) {
 			try {
 				Permission obj = new Permission();
-				obj.setName("test" + i);
+				obj.setName("t" + i + new Date().toString());
 				obj.setUrl("permission" + i);
 				permissionService.insert(obj);
 			} catch (Exception e) {

@@ -1,12 +1,14 @@
 package auth.form;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 
+import auth.model.Permission;
 import base.form.PageForm;
 
 public class RoleForm extends PageForm {
@@ -21,6 +23,8 @@ public class RoleForm extends PageForm {
 	private Date createdStartTime;
 	
 	private Date createdEndTime;
+	
+	private List<Permission> permissions;
 	
 	public String getName() {
 		return name;
@@ -45,6 +49,12 @@ public class RoleForm extends PageForm {
 	}
 	public void setCreatedEndTime(Date createdEndTime) {
 		this.createdEndTime = createdEndTime;
+	}
+	public List<Permission> getPermissions() {
+		return permissions;
+	}
+	public void setPermissions(List<Permission> permissions) {
+		this.permissions = permissions;
 	}
 	
 }

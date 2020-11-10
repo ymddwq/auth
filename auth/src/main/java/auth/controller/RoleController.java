@@ -1,5 +1,7 @@
 package auth.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -8,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 
 import auth.form.RoleForm;
+import auth.model.Permission;
 import auth.model.Role;
 import auth.service.RoleService;
 import base.exception.BaseException;
@@ -35,10 +39,26 @@ public class RoleController {
 	@ResponseBody
 	public DataResult selectAll(RoleForm form) {
 		DataResult dataResult = new DataResult();
-		PageInfo<Role> lists = null;
+		PageInfo<Role> list = null;
 		try {
-			lists = roleService.selectAll(form);
-			dataResult.setData(lists);
+			list = roleService.selectAll(form);
+			dataResult.setData(list);
+			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
+		} catch (Exception e) {
+			logger.error("RoleController selectAll " + AuthStringUtils.printStackTraceToString(e));
+			dataResult.setCodeMsg(ExceptionInfo.FAIL);
+		}
+		return dataResult;
+	}
+	
+	@RequestMapping("/selectPermissionsByRoleId")
+	@ResponseBody
+	public DataResult selectPermissionsByRoleId(Integer id) {
+		DataResult dataResult = new DataResult();
+		List<Permission> list = null;
+		try {
+			list = roleService.selectPermissionsByRoleId(id);
+			dataResult.setData(list);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
 			logger.error("RoleController selectAll " + AuthStringUtils.printStackTraceToString(e));
@@ -49,7 +69,7 @@ public class RoleController {
 	
 	@RequestMapping("/insert")
 	@ResponseBody
-	public Object insert(@Valid RoleForm form, BindingResult bindingResult) {
+	public Object insert(@RequestBody @Valid RoleForm form, BindingResult bindingResult) {
 		DataResult dataResult = new DataResult();
 		//如果参数校验失败直接返回
 		if(!ValidUtils.validResultBulid(bindingResult, dataResult)) {

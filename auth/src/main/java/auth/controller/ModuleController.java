@@ -35,10 +35,10 @@ public class ModuleController {
 	@ResponseBody
 	public DataResult selectAll(ModuleForm form) {
 		DataResult dataResult = new DataResult();
-		PageInfo<Module> lists = null;
+		PageInfo<Module> list = null;
 		try {
-			lists = moduleService.selectAll(form);
-			dataResult.setData(lists);
+			list = moduleService.selectAll(form);
+			dataResult.setData(list);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
 			logger.error("ModuleController selectAll " + AuthStringUtils.printStackTraceToString(e));

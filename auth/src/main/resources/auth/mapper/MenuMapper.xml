@@ -14,7 +14,7 @@
     <result column="UPDATED_TIME" jdbcType="TIMESTAMP" property="updatedTime" />
   </resultMap>
   
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKeys" parameterType="java.lang.Integer">
     delete from user_auth_menu where id in
     <foreach item="item" collection="list" open="(" separator="," close=")">
     	#{item}

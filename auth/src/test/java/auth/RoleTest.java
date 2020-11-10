@@ -1,5 +1,7 @@
 package auth;
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +23,9 @@ public class RoleTest {
 	@Test
 	public void insert() {
 		for(int i=0; i<=10; i++) {
-			try {
-				Role obj = new Role();
-				obj.setName("test" + i);
-				roleService.insert(obj);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			Role obj = new Role();
+			obj.setName("t" + i + new Date().toString());
+			roleService.insert(obj);
 		}
 	}
 	
@@ -45,21 +43,18 @@ public class RoleTest {
 	
 	@Test
 	public void deleteByPrimaryKey() {
-		try {
-			roleService.deleteByPrimaryKey(24);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		roleService.deleteByPrimaryKey(90);
 	}
 	
 	@Test
 	public void selectAll() {
-		try {
-			RoleForm form = new RoleForm();
-			roleService.selectAll(form);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		RoleForm form = new RoleForm();
+		roleService.selectAll(form);
+	}
+	
+	@Test
+	public void selectPermissionsByRoleId() {
+		roleService.selectPermissionsByRoleId(1);
 	}
 	
 }

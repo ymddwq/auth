@@ -1,5 +1,7 @@
 package auth;
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,10 @@ public class MenuTest {
 	public void insert() {
 		try {
 			Menu obj = new Menu();
+			
+//			obj.setName(new Date().toString());
+//			menuService.insert(obj);
+			
 			obj.setName("test1");
 			menuService.insert(obj);
 			Menu obj1 = new Menu();

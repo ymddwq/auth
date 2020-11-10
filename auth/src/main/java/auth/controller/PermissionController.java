@@ -35,10 +35,10 @@ public class PermissionController {
 	@ResponseBody
 	public DataResult selectAll(PermissionForm form) {
 		DataResult dataResult = new DataResult();
-		PageInfo<Permission> lists = null;
+		PageInfo<Permission> list = null;
 		try {
-			lists = permissionService.selectAll(form);
-			dataResult.setData(lists);
+			list = permissionService.selectAll(form);
+			dataResult.setData(list);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
 			logger.error("PermissionController selectAll " + AuthStringUtils.printStackTraceToString(e));
