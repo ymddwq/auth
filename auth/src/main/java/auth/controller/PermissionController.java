@@ -16,7 +16,6 @@ import com.github.pagehelper.PageInfo;
 import auth.form.PermissionForm;
 import auth.model.Permission;
 import auth.service.PermissionService;
-import base.exception.BaseException;
 import base.exception.ExceptionInfo;
 import base.result.DataResult;
 import base.utils.AuthStringUtils;
@@ -41,7 +40,7 @@ public class PermissionController {
 			dataResult.setData(list);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
-			logger.error("PermissionController selectAll " + AuthStringUtils.printStackTraceToString(e));
+			logger.error("PermissionController selectAll Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;
@@ -55,15 +54,11 @@ public class PermissionController {
 		if(!ValidUtils.validResultBulid(bindingResult, dataResult)) {
 			return dataResult;
 		}
-		
 		Permission obj = new Permission();
 		try {
 			BeanUtils.copyProperties(form, obj);
 			permissionService.insert(obj);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
-		} catch (BaseException e) {
-			logger.error("PermissionController insert BaseException" + AuthStringUtils.printStackTraceToString(e));
-			dataResult.setCodeMsg(ExceptionInfo.THE_SAME_NAME);
 		} catch (Exception e) {
 			logger.error("PermissionController insert Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
@@ -75,23 +70,19 @@ public class PermissionController {
 	@ResponseBody
 	public Object update(@Valid PermissionForm form, BindingResult bindingResult) {
 		DataResult dataResult = new DataResult();
+		if(form != null && StringUtils.isEmpty(form.getId())) {
+			dataResult.setCodeMsg(ExceptionInfo.ID_IS_NULL);
+			return dataResult;
+		}
 		//如果参数校验失败直接返回
 		if(!ValidUtils.validResultBulid(bindingResult, dataResult)) {
 			return dataResult;
 		}
-		if(StringUtils.isEmpty(form.getId())) {
-			dataResult.setCodeMsg(ExceptionInfo.ID_IS_NULL);
-			return dataResult;
-		}
-		
 		Permission obj = new Permission();
 		try {
 			BeanUtils.copyProperties(form, obj);
 			permissionService.updateByPrimaryKey(obj);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
-		} catch (BaseException e) {
-			logger.error("PermissionController update BaseException" + AuthStringUtils.printStackTraceToString(e));
-			dataResult.setCodeMsg(ExceptionInfo.THE_SAME_NAME);
 		} catch (Exception e) {
 			logger.error("PermissionController update Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
@@ -108,7 +99,6 @@ public class PermissionController {
 			dataResult.setCodeMsg(ExceptionInfo.ID_IS_NULL);
 			return dataResult;
 		}
-		
 		try {
 			permissionService.deleteByPrimaryKey(id);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);

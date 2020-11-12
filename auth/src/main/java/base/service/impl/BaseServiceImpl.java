@@ -26,8 +26,8 @@ public class BaseServiceImpl<T, F, M> implements BaseService<T, F> {
 		logger.info(this.getClass().getName() + " selectAll form: " + form);
 		PageHelper.startPage(((PageForm) form).getPageNum(), ((PageForm) form).getPageSize());
 		@SuppressWarnings("unchecked")
-		List<T> lists = ((BaseMapper<T, F>) mapper).selectAll(form);
-		PageInfo<T> pageInfo = new PageInfo<T>(lists);
+		List<T> list = ((BaseMapper<T, F>) mapper).selectAll(form);
+		PageInfo<T> pageInfo = new PageInfo<T>(list);
 		return pageInfo;
 	}
 	

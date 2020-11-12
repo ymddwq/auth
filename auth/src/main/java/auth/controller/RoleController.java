@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 
 import auth.form.RoleForm;
-import auth.model.Permission;
 import auth.model.Role;
 import auth.service.RoleService;
-import base.exception.BaseException;
 import base.exception.ExceptionInfo;
 import base.result.DataResult;
 import base.utils.AuthStringUtils;
@@ -45,23 +43,27 @@ public class RoleController {
 			dataResult.setData(list);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
-			logger.error("RoleController selectAll " + AuthStringUtils.printStackTraceToString(e));
+			logger.error("RoleController selectAll Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;
 	}
 	
-	@RequestMapping("/selectPermissionsByRoleId")
+	@RequestMapping("/selectRolesBySysUserId")
 	@ResponseBody
-	public DataResult selectPermissionsByRoleId(Integer id) {
+	public DataResult selectRolesBySysUserId(Integer id) {
 		DataResult dataResult = new DataResult();
-		List<Permission> list = null;
+		if(StringUtils.isEmpty(id)) {
+			dataResult.setCodeMsg(ExceptionInfo.ID_IS_NULL);
+			return dataResult;
+		}
+		List<Role> list = null;
 		try {
-			list = roleService.selectPermissionsByRoleId(id);
+			list = roleService.selectRolesBySysUserId(id);
 			dataResult.setData(list);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
-			logger.error("RoleController selectAll " + AuthStringUtils.printStackTraceToString(e));
+			logger.error("RoleController selectRolesBySysUserId Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;
@@ -75,15 +77,11 @@ public class RoleController {
 		if(!ValidUtils.validResultBulid(bindingResult, dataResult)) {
 			return dataResult;
 		}
-		
 		Role obj = new Role();
 		try {
 			BeanUtils.copyProperties(form, obj);
 			roleService.insert(obj);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
-		} catch (BaseException e) {
-			logger.error("RoleController insert BaseException" + AuthStringUtils.printStackTraceToString(e));
-			dataResult.setCodeMsg(ExceptionInfo.THE_SAME_NAME);
 		} catch (Exception e) {
 			logger.error("RoleController insert Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
@@ -93,25 +91,21 @@ public class RoleController {
 	
 	@RequestMapping("/update")
 	@ResponseBody
-	public Object update(@Valid RoleForm form, BindingResult bindingResult) {
+	public Object update(@RequestBody @Valid RoleForm form, BindingResult bindingResult) {
 		DataResult dataResult = new DataResult();
+		if(form != null && StringUtils.isEmpty(form.getId())) {
+			dataResult.setCodeMsg(ExceptionInfo.ID_IS_NULL);
+			return dataResult;
+		}
 		//如果参数校验失败直接返回
 		if(!ValidUtils.validResultBulid(bindingResult, dataResult)) {
 			return dataResult;
 		}
-		if(StringUtils.isEmpty(form.getId())) {
-			dataResult.setCodeMsg(ExceptionInfo.ID_IS_NULL);
-			return dataResult;
-		}
-		
 		Role obj = new Role();
 		try {
 			BeanUtils.copyProperties(form, obj);
 			roleService.updateByPrimaryKey(obj);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
-		} catch (BaseException e) {
-			logger.error("RoleController update BaseException" + AuthStringUtils.printStackTraceToString(e));
-			dataResult.setCodeMsg(ExceptionInfo.THE_SAME_NAME);
 		} catch (Exception e) {
 			logger.error("RoleController update Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
@@ -128,7 +122,6 @@ public class RoleController {
 			dataResult.setCodeMsg(ExceptionInfo.ID_IS_NULL);
 			return dataResult;
 		}
-		
 		try {
 			roleService.deleteByPrimaryKey(id);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);

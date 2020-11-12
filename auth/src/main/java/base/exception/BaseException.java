@@ -2,6 +2,8 @@ package base.exception;
 
 public class BaseException extends RuntimeException {
 
+	private static final long serialVersionUID = 5007261859115744676L;
+	
 	private String code;
 	private String msg;
 	

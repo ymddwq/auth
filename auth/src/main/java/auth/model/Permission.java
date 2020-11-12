@@ -5,9 +5,14 @@ import base.model.BaseModel;
 public class Permission extends BaseModel {
 
 	private Integer enabled;
+	
 	private String name;
+	
 	private String url;
-	private Integer menuid;
+	
+	private Integer menuId;
+	
+	private String flag;//1为选中 2为未选中
 	
 	public Integer getEnabled() {
 		return enabled;
@@ -33,12 +38,20 @@ public class Permission extends BaseModel {
 		this.url = url == null ? null : url.trim();
 	}
 
-	public Integer getMenuid() {
-		return menuid;
+	public Integer getMenuId() {
+		return menuId;
 	}
 
-	public void setMenuid(Integer menuid) {
-		this.menuid = menuid;
+	public void setMenuId(Integer menuId) {
+		this.menuId = menuId;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 
 }

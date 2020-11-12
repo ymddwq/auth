@@ -47,6 +47,8 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, RoleForm, RoleMapper>
 		if(1 == mapper.deleteByPrimaryKey(id)) {
 			//删除角色权限表中此角色id对应的数据
 			mapper.deleteRolePermissionByRoleId(id);
+			//删除用户角色表中此角色id对应的数据
+			mapper.deleteSysUserRoleByRoleId(id);
 			return true;
 		} else {
 			return false;
@@ -81,6 +83,11 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, RoleForm, RoleMapper>
 	@Override
 	public List<Permission> selectPermissionsByRoleId(Integer id) {
 		return mapper.selectPermissionsByRoleId(id);
+	}
+	
+	@Override
+	public List<Role> selectRolesBySysUserId(Integer id) {
+		return mapper.selectRolesBySysUserId(id);
 	}
 
 }

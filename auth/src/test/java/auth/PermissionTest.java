@@ -14,7 +14,6 @@ import auth.service.PermissionService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring/applicationContext.xml"})
-
 public class PermissionTest {
 	
 	@Autowired

@@ -108,3 +108,8 @@ ALTER TABLE user_auth_sys_user ADD UNIQUE unique_user_name_index(name);
 
 
 
+alter table user_auth_menu add addPermissionFlag int(2) not Null;
+
+
+
+

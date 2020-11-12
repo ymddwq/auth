@@ -20,6 +20,7 @@ import javax.tools.ToolProvider;
  */
 public class Proxy {
 	
+	@SuppressWarnings({ "unchecked", "resource", "rawtypes" })
 	public static Object newProxyInstance(Class infce, Handler h) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		//1.拼接代理类java文件
 		String methodStr = "";

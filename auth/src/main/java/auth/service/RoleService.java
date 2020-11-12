@@ -11,4 +11,6 @@ public interface RoleService extends BaseService<Role, RoleForm> {
 	
 	List<Permission> selectPermissionsByRoleId(Integer id);
 
+	List<Role> selectRolesBySysUserId(Integer id);
+
 }

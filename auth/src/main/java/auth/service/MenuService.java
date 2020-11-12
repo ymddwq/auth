@@ -9,5 +9,7 @@ import base.service.BaseService;
 public interface MenuService extends BaseService<Menu, MenuForm> {
 
 	List<Menu> selectAll();
+
+	List<Menu> selectAllMenuPermissions(Integer roleId);
 	
 }

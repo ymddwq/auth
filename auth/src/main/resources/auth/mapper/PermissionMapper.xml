@@ -82,4 +82,11 @@
 	where name = #{name}
   </select>
   
+  <select id="selectPermissionsByRoleId" parameterType="java.lang.Integer">
+    select uap.id
+    from user_auth_permission uap 
+    inner join user_auth_role_permission uarp on uap.id = uarp.permissionId
+    where uarp.roleId = #{roleId}
+  </select>
+  
 </mapper>

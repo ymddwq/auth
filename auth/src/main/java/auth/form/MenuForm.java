@@ -9,12 +9,15 @@ import base.form.PageForm;
 
 public class MenuForm extends PageForm {
 	
-	@NotNull(message="不能为空")
+	@NotNull(message="名字不能为空")
 	@Length(message="名称最少为2个字符，最长为32个字符", min=1, max=32)
 	private String name;
 	
 	@Pattern(regexp = "^[0-1]", message="请填写正确的值")
 	private String enabled;
+	
+	@Pattern(regexp = "^[0-1]", message="请填写正确的值")
+	private String addPermissionFlag;
 	
 	private String pid;
 	
@@ -40,6 +43,14 @@ public class MenuForm extends PageForm {
 	
 	public void setPid(String pid) {
 		this.pid = pid;
+	}
+
+	public String getAddPermissionFlag() {
+		return addPermissionFlag;
+	}
+
+	public void setAddPermissionFlag(String addPermissionFlag) {
+		this.addPermissionFlag = addPermissionFlag;
 	}
 	
 }

@@ -11,7 +11,7 @@ import base.form.PageForm;
 
 public class PermissionForm extends PageForm {
 	
-	@NotNull(message="不能为空")
+	@NotNull(message="名字不能为空")
 	@Length(message="名称最少为2个字符，最长为32个字符", min=1, max=32)
 	private String name;
 	

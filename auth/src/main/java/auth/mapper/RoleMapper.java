@@ -12,6 +12,8 @@ public interface RoleMapper extends BaseMapper<Role, RoleForm> {
 
 	int insertRolePermissions(List<RolePermission> list);
 	int deleteRolePermissionByRoleId(Integer id);
+	int deleteSysUserRoleByRoleId(Integer id);
 	List<Permission> selectPermissionsByRoleId(Integer id);
+	List<Role> selectRolesBySysUserId(Integer id);
 	
 }

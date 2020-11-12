@@ -8,33 +8,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import auth.form.RoleForm;
-import auth.model.Role;
-import auth.service.RoleService;
+import auth.form.SysUserForm;
+import auth.model.SysUser;
+import auth.service.SysUserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:spring/applicationContext.xml"})
-public class RoleTest {
+public class SysUserTest {
 	
 	@Autowired
-	RoleService roleService;
+	SysUserService sysUserService;
 	
 	@Test
 	public void insert() {
 		for(int i=0; i<=10; i++) {
-			Role obj = new Role();
+			SysUser obj = new SysUser();
 			obj.setName("t" + i + new Date().toString());
-			roleService.insert(obj);
+			sysUserService.insert(obj);
 		}
 	}
 	
 	@Test
 	public void updateByPrimaryKey() {
-//		Role obj = new Role();
-//		obj.setId(24);
+//		SysUser obj = new SysUser();
+//		obj.setId(1);
 //		obj.setName("test" + new Date().toString());
 //		try {
-//			roleService.updateByPrimaryKey(obj);
+//			sysUserService.updateByPrimaryKey(obj);
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
@@ -42,23 +42,14 @@ public class RoleTest {
 	
 	@Test
 	public void deleteByPrimaryKey() {
-		roleService.deleteByPrimaryKey(90);
+		sysUserService.deleteByPrimaryKey(1);
 	}
 	
 	@Test
 	public void selectAll() {
-		RoleForm form = new RoleForm();
-		roleService.selectAll(form);
+		SysUserForm form = new SysUserForm();
+		sysUserService.selectAll(form);
 	}
 	
-	@Test
-	public void selectPermissionsByRoleId() {
-		roleService.selectPermissionsByRoleId(1);
-	}
-	
-	@Test
-	public void selectRolesBySysUserId() {
-		roleService.selectRolesBySysUserId(1);
-	}
 	
 }

@@ -53,6 +53,7 @@ public class RedisTest {
 		System.out.println("name");
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Test
 	public static void test() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		Constructor<?>[] constructors = RedisTest.class.getConstructors();
@@ -61,6 +62,7 @@ public class RedisTest {
 		Method method = newInstance.getClass().getMethod("name");
 		method.invoke(newInstance);
 	}
+	
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		test();
 	}

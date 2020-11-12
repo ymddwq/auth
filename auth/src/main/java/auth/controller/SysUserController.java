@@ -1,7 +1,5 @@
 package auth.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -10,53 +8,40 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import auth.form.MenuForm;
-import auth.model.Menu;
-import auth.service.MenuService;
+import com.github.pagehelper.PageInfo;
+
+import auth.form.SysUserForm;
+import auth.model.SysUser;
+import auth.service.SysUserService;
 import base.exception.ExceptionInfo;
 import base.result.DataResult;
 import base.utils.AuthStringUtils;
 import base.utils.ValidUtils;
 
 @Controller
-@RequestMapping("/menu")
-public class MenuController {
+@RequestMapping("/sysUser")
+public class SysUserController {
 
-	private static Logger logger = Logger.getLogger(MenuController.class);
+	private static Logger logger = Logger.getLogger(SysUserController.class);
 	
 	@Autowired
-	MenuService menuService;
+	SysUserService sysUserService;
 	
 	@RequestMapping("/select")
 	@ResponseBody
-	public DataResult selectAll() {
+	public DataResult selectAll(SysUserForm form) {
 		DataResult dataResult = new DataResult();
-		List<Menu> list = null;
+		PageInfo<SysUser> list = null;
 		try {
-			list = menuService.selectAll();
+			list = sysUserService.selectAll(form);
 			dataResult.setData(list);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
-			logger.error("MenuController selectAll Exception" + AuthStringUtils.printStackTraceToString(e));
-			dataResult.setCodeMsg(ExceptionInfo.FAIL);
-		}
-		return dataResult;
-	}
-	
-	@RequestMapping("/selectAllMenuPermissions")
-	@ResponseBody
-	public DataResult selectAllMenuPermissions(Integer roleId) {
-		DataResult dataResult = new DataResult();
-		List<Menu> list = null;
-		try {
-			list = menuService.selectAllMenuPermissions(roleId);
-			dataResult.setData(list);
-			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
-		} catch (Exception e) {
-			logger.error("MenuController selectAllMenuPermissions Exception" + AuthStringUtils.printStackTraceToString(e));
+			logger.error("SysUserController selectAll Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;
@@ -64,19 +49,23 @@ public class MenuController {
 	
 	@RequestMapping("/insert")
 	@ResponseBody
-	public Object insert(@Valid MenuForm form, BindingResult bindingResult) {
+	public Object insert(@RequestBody @Valid SysUserForm form, BindingResult bindingResult) {
 		DataResult dataResult = new DataResult();
 		//如果参数校验失败直接返回
 		if(!ValidUtils.validResultBulid(bindingResult, dataResult)) {
 			return dataResult;
 		}
-		Menu obj = new Menu();
+		if(!form.getPassword().equals(form.getPassword1())) {
+			dataResult.setCodeMsg(ExceptionInfo.USER_PASSWORD_NOT_SAME);
+			return dataResult;
+		}
+		SysUser obj = new SysUser();
 		try {
 			BeanUtils.copyProperties(form, obj);
-			menuService.insert(obj);
+			sysUserService.insert(obj);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
-			logger.error("MenuController insert Exception" + AuthStringUtils.printStackTraceToString(e));
+			logger.error("SysUserController insert Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;
@@ -84,7 +73,7 @@ public class MenuController {
 	
 	@RequestMapping("/update")
 	@ResponseBody
-	public Object update(@Valid MenuForm form, BindingResult bindingResult) {
+	public Object update(@RequestBody @Valid SysUserForm form, BindingResult bindingResult) {
 		DataResult dataResult = new DataResult();
 		if(form != null && StringUtils.isEmpty(form.getId())) {
 			dataResult.setCodeMsg(ExceptionInfo.ID_IS_NULL);
@@ -98,13 +87,13 @@ public class MenuController {
 			dataResult.setCodeMsg(ExceptionInfo.ID_IS_NULL);
 			return dataResult;
 		}
-		Menu obj = new Menu();
+		SysUser obj = new SysUser();
 		try {
 			BeanUtils.copyProperties(form, obj);
-			menuService.updateByPrimaryKey(obj);
+			sysUserService.updateByPrimaryKey(obj);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
-			logger.error("MenuController update Exception" + AuthStringUtils.printStackTraceToString(e));
+			logger.error("SysUserController update Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;
@@ -120,10 +109,10 @@ public class MenuController {
 			return dataResult;
 		}
 		try {
-			menuService.deleteByPrimaryKey(id);
+			sysUserService.deleteByPrimaryKey(id);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
-			logger.error("MenuController delete Exception" + AuthStringUtils.printStackTraceToString(e));
+			logger.error("SysUserController delete Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;

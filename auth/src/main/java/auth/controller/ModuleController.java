@@ -16,7 +16,6 @@ import com.github.pagehelper.PageInfo;
 import auth.form.ModuleForm;
 import auth.model.Module;
 import auth.service.ModuleService;
-import base.exception.BaseException;
 import base.exception.ExceptionInfo;
 import base.result.DataResult;
 import base.utils.AuthStringUtils;
@@ -41,7 +40,7 @@ public class ModuleController {
 			dataResult.setData(list);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
 		} catch (Exception e) {
-			logger.error("ModuleController selectAll " + AuthStringUtils.printStackTraceToString(e));
+			logger.error("ModuleController selectAll Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
 		}
 		return dataResult;
@@ -60,9 +59,6 @@ public class ModuleController {
 			BeanUtils.copyProperties(form, module);
 			moduleService.insert(module);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
-		} catch (BaseException e) {
-			logger.error("ModuleController insert BaseException" + AuthStringUtils.printStackTraceToString(e));
-			dataResult.setCodeMsg(ExceptionInfo.THE_SAME_NAME);
 		} catch (Exception e) {
 			logger.error("ModuleController insert Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
@@ -74,6 +70,10 @@ public class ModuleController {
 	@ResponseBody
 	public Object update(@Valid ModuleForm form, BindingResult bindingResult) {
 		DataResult dataResult = new DataResult();
+		if(form != null && StringUtils.isEmpty(form.getId())) {
+			dataResult.setCodeMsg(ExceptionInfo.ID_IS_NULL);
+			return dataResult;
+		}
 		//如果参数校验失败直接返回
 		if(!ValidUtils.validResultBulid(bindingResult, dataResult)) {
 			return dataResult;
@@ -87,9 +87,6 @@ public class ModuleController {
 			BeanUtils.copyProperties(form, module);
 			moduleService.updateByPrimaryKey(module);
 			dataResult.setCodeMsg(ExceptionInfo.SUCCESS);
-		} catch (BaseException e) {
-			logger.error("ModuleController update BaseException" + AuthStringUtils.printStackTraceToString(e));
-			dataResult.setCodeMsg(ExceptionInfo.THE_SAME_NAME);
 		} catch (Exception e) {
 			logger.error("ModuleController update Exception" + AuthStringUtils.printStackTraceToString(e));
 			dataResult.setCodeMsg(ExceptionInfo.FAIL);
