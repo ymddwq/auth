@@ -33,7 +33,7 @@ public class BaseServiceImpl<T, F, M> implements BaseService<T, F> {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean insert(T t) {
+	public boolean insert(T t) throws Exception {
 		logger.info(this.getClass().getName() + " insert po: " + t);
 		if(1 == ((BaseMapper<T, F>) mapper).insert(t)) {
 			return true;

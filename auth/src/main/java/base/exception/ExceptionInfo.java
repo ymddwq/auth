@@ -14,5 +14,6 @@ public class ExceptionInfo {
 	
 	public static final BaseException GET_REDIS_LOCK_TIMEOUT = new BaseException("200000", "获取redis锁超时");
 	public static final BaseException REDIS_UNLOCK_FAIL = new BaseException("200001", "redis锁释放失败");
+	public static final BaseException REDIS_KEY_TIMEOUT = new BaseException("200001", "redis key失效");
 	
 }

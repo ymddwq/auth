@@ -18,14 +18,12 @@
 	</delete>
 	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="auth.model.Module">
-		insert into user_auth_module (name, enabled, REVISION, CREATED_BY, CREATED_TIME,UPDATED_BY, UPDATED_TIME)
+		insert into user_auth_module (name, enabled, REVISION, CREATED_BY, CREATED_TIME)
 		values (#{name,jdbcType=VARCHAR},
 				#{enabled,jdbcType=VARCHAR},
 				#{revision,jdbcType=INTEGER}, 
 				#{createdBy,jdbcType=VARCHAR}, 
-				#{createdTime,jdbcType=TIMESTAMP},
-				#{updatedBy,jdbcType=VARCHAR}, 
-				#{updatedTime,jdbcType=TIMESTAMP})
+				#{createdTime,jdbcType=TIMESTAMP}
 	</insert>
 	
 	<update id="updateByPrimaryKey"
@@ -36,7 +34,6 @@
 		set name = #{name,jdbcType=VARCHAR},
 		enabled = #{enabled,jdbcType=VARCHAR},
 		REVISION = #{revision,jdbcType=INTEGER},
-		CREATED_BY = #{createdBy,jdbcType=VARCHAR},
 		UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
 		UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP}
 		where id = #{id,jdbcType=INTEGER}

@@ -14,6 +14,8 @@ public class SysUser extends BaseModel {
     
     private List<Role> roles;
     
+    private String publicKey;
+    
     public String getName() {
         return name;
     }
@@ -44,6 +46,14 @@ public class SysUser extends BaseModel {
 
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
+	}
+
+	public String getPublicKey() {
+		return publicKey;
+	}
+
+	public void setPublicKey(String publicKey) {
+		this.publicKey = publicKey;
 	}
 
 }

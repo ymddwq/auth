@@ -20,7 +20,7 @@ public class RoleTest {
 	RoleService roleService;
 	
 	@Test
-	public void insert() {
+	public void insert() throws Exception {
 		for(int i=0; i<=10; i++) {
 			Role obj = new Role();
 			obj.setName("t" + i + new Date().toString());

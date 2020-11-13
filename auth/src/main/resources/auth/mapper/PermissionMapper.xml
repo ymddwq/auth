@@ -33,12 +33,10 @@
   <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="auth.model.Permission">
     insert into user_auth_permission (id, enabled, name, 
       url, menuId, REVISION, 
-      CREATED_BY, CREATED_TIME, UPDATED_BY, 
-      UPDATED_TIME)
+      CREATED_BY, CREATED_TIME)
     values (#{id,jdbcType=INTEGER}, #{enabled,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{menuid,jdbcType=INTEGER}, #{revision,jdbcType=INTEGER}, 
-      #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
-      #{updatedTime,jdbcType=TIMESTAMP})
+      #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP})
   </insert>
   
   <update id="updateByPrimaryKey" parameterType="auth.model.Permission">

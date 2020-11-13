@@ -28,11 +28,9 @@
   
   <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="auth.model.Role">
     insert into user_auth_role (id, name, enabled, 
-      REVISION, CREATED_BY, CREATED_TIME, 
-      UPDATED_BY, UPDATED_TIME)
+      REVISION, CREATED_BY, CREATED_TIME)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{enabled,jdbcType=INTEGER}, 
-      #{revision,jdbcType=INTEGER}, #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
-      #{updatedBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP})
+      #{revision,jdbcType=INTEGER}, #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP})
   </insert>
   
   <insert id="insertRolePermissions" parameterType="auth.model.RolePermission">

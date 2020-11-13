@@ -17,7 +17,7 @@ public class MenuTest {
 	MenuService menuService;
 	
 	@Test
-	public void insert() {
+	public void insert() throws Exception {
 		Menu obj = new Menu();
 		
 //		obj.setName(new Date().toString());
