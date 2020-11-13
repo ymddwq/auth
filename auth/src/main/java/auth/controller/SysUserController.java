@@ -73,7 +73,7 @@ public class SysUserController {
 	
 	@RequestMapping("/update")
 	@ResponseBody
-	public Object update(@RequestBody @Valid SysUserForm form, BindingResult bindingResult) {
+	public Object update(@RequestBody SysUserForm form, BindingResult bindingResult) {
 		DataResult dataResult = new DataResult();
 		if(form != null && StringUtils.isEmpty(form.getId())) {
 			dataResult.setCodeMsg(ExceptionInfo.ID_IS_NULL);

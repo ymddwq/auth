@@ -17,12 +17,13 @@ public class SysUserForm extends PageForm {
 	@Length(message="名称最少为2个字符，最长为32个字符", min=2, max=32)
 	private String name;
 
+	@NotNull(message="密钥不能为空")
+	private String publicKey;
+	
 	@NotNull(message="密码不能为空")
-	@Length(message="密码最少为6个字符，最长为32个字符", min=6, max=32)
 	private String password;
 	
 	@NotNull(message="重复密码不能为空")
-	@Length(message="重复密码最少为6个字符，最长为32个字符", min=6, max=32)
 	private String password1;
 	
 	@Pattern(regexp = "^[0-1]", message="请填写正确的值")
@@ -88,6 +89,14 @@ public class SysUserForm extends PageForm {
 
 	public void setPermissions(List<Permission> permissions) {
 		this.permissions = permissions;
+	}
+
+	public String getPublicKey() {
+		return publicKey;
+	}
+
+	public void setPublicKey(String publicKey) {
+		this.publicKey = publicKey;
 	}
 	
 }

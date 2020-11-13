@@ -5,7 +5,6 @@
   <resultMap id="BaseResultMap" type="auth.model.SysUser">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="enabled" jdbcType="INTEGER" property="enabled" />
     <result column="REVISION" jdbcType="INTEGER" property="revision" />
     <result column="CREATED_BY" jdbcType="VARCHAR" property="createdBy" />
@@ -26,7 +25,8 @@
     insert into user_auth_sys_user (id, name, password, 
       enabled, REVISION, CREATED_BY, CREATED_TIME
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (
+      #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{enabled,jdbcType=INTEGER}, #{revision,jdbcType=INTEGER}, #{createdBy,jdbcType=VARCHAR}, 
       #{createdTime,jdbcType=TIMESTAMP}
       )
@@ -43,25 +43,22 @@
   <update id="updateByPrimaryKey" parameterType="auth.model.SysUser">
     update user_auth_sys_user
     set name = #{name,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
       enabled = #{enabled,jdbcType=INTEGER},
       REVISION = #{revision,jdbcType=INTEGER},
-      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
-      CREATED_TIME = #{createdTime,jdbcType=TIMESTAMP},
       UPDATED_BY = #{updatedBy,jdbcType=VARCHAR},
       UPDATED_TIME = #{updatedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select id, name, password, enabled, REVISION, CREATED_BY, CREATED_TIME, UPDATED_BY, 
+    select id, name, enabled, REVISION, CREATED_BY, CREATED_TIME, UPDATED_BY, 
     UPDATED_TIME
     from user_auth_sys_user
     where id = #{id,jdbcType=INTEGER}
   </select>
   
   <select id="selectAll" resultMap="BaseResultMap">
-    select id, name, password, enabled, REVISION, CREATED_BY, CREATED_TIME, UPDATED_BY, 
+    select id, name, enabled, REVISION, CREATED_BY, CREATED_TIME, UPDATED_BY, 
     UPDATED_TIME
     from user_auth_sys_user
   </select>
