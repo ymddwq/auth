@@ -24,6 +24,7 @@ public class RSAController {
 	@Autowired
 	RedisTemplate<String, Object> redisTemplate;
 	
+	//TODO 待优化，需要加入ip mac等，防止同一客户多次调用
 	@RequestMapping("/getPublicKey")
 	@ResponseBody
 	public DataResult getPublicKey() {

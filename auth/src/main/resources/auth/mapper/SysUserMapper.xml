@@ -63,4 +63,19 @@
     from user_auth_sys_user
   </select>
   
+  <select id="selectSysUserByNameAndPassword" resultMap="BaseResultMap">
+    select id, name, password from user_auth_sys_user
+    where name = #{name} and password = #{password}
+  </select>
+  
+  <select id="selectPermissionsBySysUserId" resultType="auth.model.SysUserPermission">
+    select uasu.id userId, uasu.name userName, uap.id permissionId, uap.name permissionName, uap.url
+    from user_auth_sys_user uasu
+    left join user_auth_sys_user_role uasur on uasu.id = uasur.userId
+    left join user_auth_role uar on uasur.roleId = uar.id
+    left join user_auth_role_permission uarp on uarp.roleId = uar.id
+    left join user_auth_permission uap on uap.id = uarp.permissionId
+    where uasu.id = #{userId}
+  </select>
+  
 </mapper>
