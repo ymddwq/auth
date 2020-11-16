@@ -13,21 +13,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;
 
 public class SysUserFilter implements Filter {
 	
-	@Autowired
-	RedisTemplate<String, Object> redisTemplate;
+	static List<String> passUrls;
 
 	@Override
 	public void destroy() {
-		redisTemplate.delete("passURL");
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
@@ -35,9 +30,8 @@ public class SysUserFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         // 请求的url
         String url = request.getRequestURI();
-        List<String> list = (List<String>) redisTemplate.opsForValue().get("passURL");
-        if(!CollectionUtils.isEmpty(list)) {
-        	for(String str : list) {
+        if(!CollectionUtils.isEmpty(passUrls)) {
+        	for(String str : passUrls) {
         		if(url.indexOf(str) > -1) {
         			filterChain.doFilter(request, response);
         		}
@@ -49,14 +43,12 @@ public class SysUserFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// 获取web.xml中的初始化参数
         String ignoreURL = filterConfig.getInitParameter("passURL");
-        List<String> list = new ArrayList<>();
+        List<String> passUrls = new ArrayList<>();
         // 保存不拦截的url
         String[] ignoreURLArray = ignoreURL.split(",");
         for (String url : ignoreURLArray) {
-        	list.add(url.trim());
+        	passUrls.add(url.trim());
         }
-        //存入redis
-        redisTemplate.opsForValue().set("passURL", list);
 	}
 
 }
