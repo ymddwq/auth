@@ -43,7 +43,7 @@ public class SysUserFilter implements Filter {
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// 获取web.xml中的初始化参数
         String ignoreURL = filterConfig.getInitParameter("passURL");
-        List<String> passUrls = new ArrayList<>();
+        passUrls = new ArrayList<>();
         // 保存不拦截的url
         String[] ignoreURLArray = ignoreURL.split(",");
         for (String url : ignoreURLArray) {
